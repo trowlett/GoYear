@@ -1,0 +1,68 @@
+﻿body {
+}
+#PlayerEdit 
+{
+    margin-left: 5em;
+    margin-top: 10px;
+}
+#PlayerEdit table
+{
+    border-collapse: collapse;
+    margin-top: 5px;
+}
+.point_load th 
+{
+	text-align: center;
+}
+.seqno 
+{
+	width: 50px;
+	text-align: center;
+}
+.name 
+{
+	width: 150px;
+	text-align: left;
+}
+.points 
+{
+	width: 80px;
+	text-align: right;
+}
+.eventid 
+{
+	width: 100px;
+	text-align: left;
+}
+.gross 
+{
+	width: 50px;
+	text-align: right;
+}
+.hcp 
+{
+	width: 50px;
+	text-align: right;
+}
+.net 
+{
+	width: 50px;
+	text-align: right;
+}
+.Mtitle
+{
+    width: 300px;
+    text-align: left;
+}
+#PlayerEdit th
+{
+    border: 1px navy solid;
+    background-color: navy;
+    color: white;
+    padding: 5px;
+}
+#PlayerEdit td
+{
+	border: 1px navy solid;
+    padding: 5px;
+}
