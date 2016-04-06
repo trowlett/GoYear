@@ -13,7 +13,7 @@ public partial class Load_load_scores : System.Web.UI.Page
 //    private string path;
     string sourceDirectory;
     string fileName;
-    string filter;
+//   string filter;
 //    string[] files;
 
     protected void Page_Load(object sender, EventArgs e)

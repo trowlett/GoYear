@@ -11,14 +11,14 @@ using System.Data.Linq.Mapping;
 [Table(Name="GoYDetail")]
 public class GoYDetail
 {
-    [Column(IsPrimaryKey = true, DbType="INT NOT NULL IDENTITY", CanBeNull=false, IsDbGenerated=true)]
-    public int Seq;
-    [Column]
+    [Column(IsPrimaryKey = true, Name = "ClubID", DbType = "CHAR(3) NOT NULL", CanBeNull = false)]
+    public string ClubID;
+    [Column(IsPrimaryKey = true, Name = "EventID", DbType = "CHAR(14) NOT NULL", CanBeNull = false)]
     public string EventID;
+    [Column(IsPrimaryKey = true, Name = "MemberName", DbType = "VARCHAR(50) NOT NULL", CanBeNull = false)]
+    public string MemberName;
     [Column]
     public int EventType;
-    [Column]
-    public string MemberName;
     [Column]
     public double Points;
     [Column]

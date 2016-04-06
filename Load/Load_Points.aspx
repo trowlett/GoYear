@@ -77,8 +77,7 @@
 	</td>
 
 	<td style="font-size: medium">
-	<h2>Point files already loaded  
-		</h2>
+	<h2>Point files loaded previously</h2>
 		<br />
 		<asp:SqlDataSource ID="SqlDataSource1" runat="server" 
 			ConnectionString="<%$ ConnectionStrings:ConnectionString %>" 

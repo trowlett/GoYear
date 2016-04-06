@@ -26,6 +26,8 @@ public partial class Load_Load_Points : System.Web.UI.Page
         
         string fn = pointFileName;
         filename = System.IO.Path.Combine(path, fn);
+        lblDbLoadStatus.Text = "Loading Points.";
+        
         this.Details = GoYEntries.LoadPointsFromTxt(filename);
         this.GoYPointsRepeater.DataSource = new GoYEntries[] { this.Details };
         this.GoYPointsRepeater.DataBind();
@@ -131,11 +133,13 @@ public partial class Load_Load_Points : System.Web.UI.Page
             if (loadFile)
             {
                 load_pointFile();
+                lblDbLoadStatus.Text = "Updating Database.";
                 db.SubmitChanges();
                 btnLoad.Enabled = false;
                 DataBind();
-//                btnApply.Enabled = true;
-//                btnApply.Visible = true;
+            //                btnApply.Enabled = true;
+            //                btnApply.Visible = true;
+                lblDbLoadStatus.Text = "Applying Points";
                 ApplyPoints();
                 lblDbLoadStatus.Text = "Event Points loaded and Applied to database successfully";
             }

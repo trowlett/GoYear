@@ -27,6 +27,7 @@ public class GoYEntries
     public DateTime CreateTime { get; private set; }
     private static string[] lines;
 
+    
     public static GoYEntries LoadPointsFromTxt(string fileName)
     {
         string MRMISGADBConn = ConfigurationManager.ConnectionStrings["MRMISGADBConnect"].ToString();
@@ -61,6 +62,7 @@ public class GoYEntries
                 GoYEntry e = new GoYEntry()
                 {
                     Eseq = seqno,
+                    EClubID = fields[0].Substring(0,3),
                     EEventID = fields[0],
                     EMemberName = fields[1],
                     EEventType = 0,
@@ -77,11 +79,15 @@ public class GoYEntries
                     e.EPoints = Convert.ToDouble(fields[7]);
                 }
                 string evi = fields[0];
-                var x = mdb.Events.FirstOrDefault(n => n.EventID.Trim() == evi);
+                var x = mdb.Events.FirstOrDefault(n => n.ClubID == evi.Substring(0,3) && n.EventID.Trim() == evi);
+                e.EEventType = GetEventType(x.Type.ToUpper().Trim());
+/*
                 string evType = x.Type.ToUpper().Trim();
                 if (evType == "HOME") e.EEventType = 1;
                 if (evType == "AWAY") e.EEventType = 2;
                 if (evType == "MISGA") e.EEventType = 3;
+                if (evType == "CLUB") e.EEventType = 4;
+                */
                 
                 target.Details.Add(e);
 
@@ -92,13 +98,22 @@ public class GoYEntries
         return target;
     }
 
+    public static int GetEventType(string EventType)
+    {
+        if (EventType == "HOME") return 1;
+        if (EventType == "AWAY") return 2;
+        if (EventType == "MISGA") return 3;
+        if (EventType == "CLUB") return 4;
+        return 9;
+    }
+
     public static GoYEntries LoadPlayers(string EventID)
     {
         GoYEntries target = new GoYEntries();
         string MRMISGADBConn = ConfigurationManager.ConnectionStrings["MRMISGADBConnect"].ToString();
         MRMISGADB db = new MRMISGADB(MRMISGADBConn);
 
-        Events ev = db.Events.FirstOrDefault(e => e.EventID == EventID);
+        Events ev = db.Events.FirstOrDefault(e => (e.ClubID == EventID.Substring(0,3)) && (e.EventID == EventID));
 
         var slist = 
             from pl in db.PlayersList
@@ -115,6 +130,7 @@ public class GoYEntries
             GoYEntry entry = new GoYEntry()
             {
                 Eseq = seqNo,
+                EClubID= item.EventID.Substring(0,3),
                 EEventID = item.EventID,
                 EMemberName = item.Name,
  //               EMemberID = item.MemberID,
@@ -123,14 +139,17 @@ public class GoYEntries
                 EGross = "",
                 ENet = ""
             };
-            entry.EEventType = 1;
-            if (ev.Type.ToUpper().Trim() == "AWAY") entry.EEventType = 2;
-            if (ev.Type.ToUpper().Trim() == "MISGA") entry.EEventType = 3;
+            entry.EEventType = GetEventType(ev.Type.ToUpper().Trim());
+            
+//            entry.EEventType = 1;
+//            if (ev.Type.ToUpper().Trim() == "AWAY") entry.EEventType = 2;
+//            if (ev.Type.ToUpper().Trim() == "MISGA") entry.EEventType = 3;          
 
             target.details.Add(entry);
         }
         return target;
     }
+    
 
     public static GoYEntries LoadPointsDetail(string EventID)
     {
@@ -141,16 +160,18 @@ public class GoYEntries
         var dlist =
             from d in gdb.GoYDetail
             where ((d.EventID == EventID) && (d.Points > 0.0))
-            orderby d.EventID ascending, d.Points descending, d.Net ascending, d.MemberName ascending
-            select new { d.Seq, d.EventID, d.EventType, d.MemberName, d.Points, d.Gross, d.Hcp, d.Net };
+            orderby d.ClubID ascending, d.EventID ascending, d.Points descending, d.Net ascending, d.MemberName ascending
+            select new { d.ClubID, d.EventID, d.MemberName, d.EventType, d.Points, d.Gross, d.Hcp, d.Net };
 
         if (dlist != null)
         {
+            int seqNo = 0;
             foreach (var item in dlist)
             {
+                seqNo++;
                     GoYEntry ge = new GoYEntry()
                     {
-                        Eseq = item.Seq,
+                        Eseq = seqNo,
                         EEventID = item.EventID,
                         EEventType = item.EventType,
                         EMemberName = item.MemberName,
@@ -168,6 +189,8 @@ public class GoYEntries
         }
         return target;
     }
+    
+
     public static GoYEntries LoadDataFromCSVFile(string FileName)
     {
         GoYEntries target = new GoYEntries();
@@ -184,11 +207,12 @@ public class GoYEntries
     {
         string GoYConn = ConfigurationManager.ConnectionStrings["GoYConnect"].ToString();
         GoY db = new GoY(GoYConn);
-        GoYDetail ev = db.GoYDetail.FirstOrDefault(p => p.EventID == e.EEventID && p.MemberName == e.EMemberName);
+        GoYDetail ev = db.GoYDetail.FirstOrDefault(p => p.ClubID==e.EClubID && p.EventID == e.EEventID && p.MemberName == e.EMemberName);
         if (ev == null)
         {
             GoYDetail newDetail = new GoYDetail()
             {
+                ClubID = e.EClubID,
                 EventID = e.EEventID,
                 EventType = e.EEventType,
                 MemberName = e.EMemberName,

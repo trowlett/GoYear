@@ -9,9 +9,10 @@ using System.Web;
 public class GoYEntry
 {
     public int Eseq { get; set; }
+    public string EClubID { get; set; }
     public string EEventID { get; set; }
-    public int EEventType { get; set; }
     public string EMemberName { get; set; }
+    public int EEventType { get; set; }
     public double EPoints { get; set; }
     public string EGross { get; set; }
     public string EHcp { get; set; }

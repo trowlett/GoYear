@@ -10,7 +10,7 @@ using System.Collections.ObjectModel;
 /// </summary>
 public class AccessControl
 {
-    private const string controlCode = "4972";
+    private const string controlCode = "XXXX";
     private const string accessCode = "Putter";
 
     public static bool IsValidMember(string LastName, string FirstName, string AccessCode)

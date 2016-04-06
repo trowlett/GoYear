@@ -8,6 +8,7 @@ using System.Web;
 /// </summary>
 public class GoYScoreEntry
 {
+    public string ClubID { get; set; }
     public string EventID { get; set; }
     public string Name { get; set; }
     public string Score { get; set; }
