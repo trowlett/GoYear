@@ -41,7 +41,15 @@ public partial class PartByMember : System.Web.UI.Page
             string x = member.MemberName;
             ddlMembers.Items.Add(new ListItem(x,x));
         }
-
+        if (ddlMembers.Items.Count > 0)
+        {
+            btnSelect.Visible = true;
+            btnSelect.Enabled = true;
+        }
+        else
+        {
+            lblNoMembers.Visible = true;
+        }
     }
     protected void btnSelect_Click(object sender, EventArgs e)
     {

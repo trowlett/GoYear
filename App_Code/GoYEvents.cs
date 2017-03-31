@@ -11,7 +11,7 @@ public class GoYEvents
 {
     public static string GetLastEvent()
     {
-        //        return "All 2014 Events";
+        //        return "All 2017 Events";
         string GoYConn = ConfigurationManager.ConnectionStrings["GoYConnect"].ToString();
         GoY db = new GoY(GoYConn);
         string EventID = "";
@@ -23,16 +23,22 @@ public class GoYEvents
         {
             throw new InvalidOperationException("Derp:  No GoY Details Available");
         }
-
+        string eventProperties = "";
         foreach (var item in eid)
         {
             EventID = item.Name;    // go thru list of Events and retrieve the most recent one
         }
+        if (EventID == "")              // no events available
+        {
+            eventProperties = "NO EVENTS AVAILABLE";
+        }
+        else
+        { 
         string MRMISGADBConn = ConfigurationManager.ConnectionStrings["MRMISGADBConnect"].ToString();
         MRMISGADB mdb = new MRMISGADB(MRMISGADBConn);
         Events ev = mdb.Events.FirstOrDefault(p => p.EventID == EventID);
-
-        string eventProperties = string.Format("Through {0}, {1} - {2}", ev.Date.ToString("MMM d"), ev.Type, ev.Title);
+        eventProperties = string.Format("Through {0}, {1} - {2}", ev.Date.ToString("MMM d"), ev.Type, ev.Title);
+        }
         return eventProperties;
 
     }

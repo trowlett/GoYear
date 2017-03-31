@@ -17,7 +17,18 @@ public partial class ParticipationByEvent : System.Web.UI.Page
         InputPanel.Visible = true;
         PlayerPanel.Visible = false;
         ControlPanel.Visible = false;
-        if (!IsPostBack) LoadDDLEvents();
+        if (!IsPostBack)
+        {
+            if (LoadDDLEvents())
+            {
+                btnSelect.Visible = true;
+                btnSelect.Enabled = true;
+            }
+            else
+            {
+                lblNoEvents.Visible = true;
+            }
+        }
     }
 
     protected bool LoadDDLEvents()

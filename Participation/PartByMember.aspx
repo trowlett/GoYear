@@ -7,7 +7,9 @@
 <p>Select Member:&nbsp;
     <asp:DropDownList ID="ddlMembers" runat="server">
     </asp:DropDownList>
-    <asp:Button ID="btnSelect" runat="server" OnClick="btnSelect_Click" Text="Select" />
+    <asp:Button ID="btnSelect" runat="server" OnClick="btnSelect_Click" Text="Select" Enabled="False" Visible="False" />
+    <br />
+    <asp:Label ID="lblNoMembers" runat="server" Text="No Members to select" Visible="False"></asp:Label>
 </p>
     <asp:Panel ID="Panel1" runat="server">
         <asp:Label ID="lblResults" runat="server" Font-Bold="True" ForeColor="#0033CC" Height="1.2em"></asp:Label>

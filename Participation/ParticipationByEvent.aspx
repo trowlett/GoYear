@@ -12,8 +12,9 @@
         <asp:DropDownList ID="ddlEvents" runat="server"  
             DataTextField="Date" DataValueField="Date" OnSelectedIndexChanged="ddlEvents_SelectedIndexChanged">
         </asp:DropDownList>
-        <asp:Button ID="btnSelect" runat="server" OnClick="btnSelect_Click" Text="Select" />
+        <asp:Button ID="btnSelect" runat="server" OnClick="btnSelect_Click" Text="Select" Enabled="False" Visible="False" />
         <br /> <br />
+    <asp:Label ID="lblNoEvents" runat="server" Text="No Events to Select" Visible="False"></asp:Label>
     </asp:Panel>
     <asp:Panel ID="InputPanel" runat="server">
         <asp:Label ID="lblID" runat="server" Text=""></asp:Label>

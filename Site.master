@@ -35,14 +35,15 @@
                         <asp:MenuItem NavigateUrl="~/Summary.aspx" Text="Summary" 
                             ToolTip="Calculate and Display Summary information" Value="Summary">
                         </asp:MenuItem>
+                        <asp:MenuItem NavigateUrl="~/Load/Load_Points.aspx" Text="Load Points" Value="Load Points"></asp:MenuItem>
                         <asp:MenuItem NavigateUrl="~/Standings/standings.aspx" Text="Standings" Value="Standings"/>
                         <asp:MenuItem Text="Participation" 
                             Value="Participation">
                             <asp:MenuItem NavigateUrl="~/Participation/ParticipationByEvent.aspx" Text="By Event" Value="By Event"></asp:MenuItem>
                             <asp:MenuItem NavigateUrl="~/Participation/PartByMember.aspx" Text="By Member" Value="By Member"></asp:MenuItem>
                         </asp:MenuItem>
-                        <asp:MenuItem NavigateUrl="~/Load/Load_Points.aspx" Text="Load Points" 
-                            Value="Load Points"></asp:MenuItem>
+                        <asp:MenuItem NavigateUrl="~/Maintenance/annual.aspx" Text="Maintenance" 
+                            Value="Maintenance"></asp:MenuItem>
                         <asp:MenuItem NavigateUrl="~/About.aspx" Text="About"/>
                     </Items>
                 </asp:Menu>
