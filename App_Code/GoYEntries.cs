@@ -80,6 +80,12 @@ public class GoYEntries
                 }
                 string evi = fields[0];
                 var x = mdb.Events.FirstOrDefault(n => n.ClubID == evi.Substring(0,3) && n.EventID.Trim() == evi);
+                if (x == null)
+                {
+                    string emsg = String.Format("DERP: {0} Event not in Event Database.", evi);
+                    throw new InvalidOperationException(emsg);
+                }
+
                 e.EEventType = GetEventType(x.Type.ToUpper().Trim());
 /*
                 string evType = x.Type.ToUpper().Trim();
